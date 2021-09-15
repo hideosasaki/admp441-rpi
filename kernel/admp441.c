@@ -32,7 +32,7 @@ static struct snd_soc_dai admp441_soc_driver = { };
 
 static int admp441_probe(struct platform_device *pdev)
 {
-	sph0645lm4h_soc_driver = *devm_snd_soc_register_dai(&pdev->dev, &admp441_codec_driver, &admp441_dai, 1);
+	admp441_soc_driver = *devm_snd_soc_register_dai(&pdev->dev, &admp441_codec_driver, &admp441_dai, 1);
 	return 0;
 }
 
