@@ -11,7 +11,7 @@
 #define ADMP441_RATE_MIN 16000
 #define ADMP441_RATE_MAX 48000
 
-#define ADMP441_FORMATS (SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32)
+#define ADMP441_FORMATS (SNDRV_PCM_FMTBIT_S32_LE | SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S16_LE)
 
 static struct snd_soc_dai_driver admp441_dai = {
 	.name = "admp441-hifi",
@@ -26,18 +26,18 @@ static struct snd_soc_dai_driver admp441_dai = {
 	},
 };
 
-static struct snd_soc_component admp441_component = {
-	.name = "admp441-hifi",
-	.id = 0,
-	.name_prefix = "admp441"
-};
-
 static struct snd_soc_dai admp441_soc_driver = { };
+
+static struct snd_soc_component_driver admp441_soc_component = {
+	.idle_bias_on		= 1,
+	.use_pmdown_time	= 1,
+	.endianness		= 1,
+	.non_legacy_dai_naming	= 1,
+};
 
 static int admp441_probe(struct platform_device *pdev)
 {
-	admp441_component.dev = &pdev->dev;
-	admp441_soc_driver = *devm_snd_soc_register_dai(&pdev->dev, &admp441_component, &admp441_dai, 1);
+	admp441_soc_driver = *devm_snd_soc_register_dai(&pdev->dev, &admp441_soc_component, &admp441_dai, 1);
 	return 0;
 }
 
