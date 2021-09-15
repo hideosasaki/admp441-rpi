@@ -29,7 +29,7 @@ static struct snd_soc_dai_driver admp441_dai = {
 static struct snd_soc_component admp441_component = {
 	.name = "admp441-hifi",
 	.id = 0,
-	.name_prefix = "admp441"
+	.name_prefix = "admp441",
 	.dev = {},
 	.card = {}
 };
