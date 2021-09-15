@@ -26,16 +26,19 @@ static struct snd_soc_dai_driver admp441_dai = {
 	},
 };
 
-static struct snd_soc_codec_driver admp441_codec_driver = { };
+static struct snd_soc_component admp441_codec_driver = { };
+
+static struct snd_soc_dai admp441_soc_driver = { };
 
 static int admp441_probe(struct platform_device *pdev)
 {
-	return snd_soc_register_codec(&pdev->dev, &admp441_codec_driver, &admp441_dai, 1);
+	sph0645lm4h_soc_driver = *devm_snd_soc_register_dai(&pdev->dev, &admp441_codec_driver, &admp441_dai, 1);
+	return 0;
 }
 
 static int admp441_remove(struct platform_device *pdev)
 {
-	snd_soc_unregister_codec(&pdev->dev);
+	snd_soc_unregister_dai(&admp441_soc_driver);
 	return 0;
 }
 
@@ -59,5 +62,5 @@ static struct platform_driver admp441_driver = {
 module_platform_driver(admp441_driver);
 
 MODULE_DESCRIPTION("ADMP441 driver");
-MODULE_AUTHOR("George Talusan <george.talusan@gmail.com>");
+MODULE_AUTHOR("George Talusan <george.talusan@gmail.com>, hideosasaki");
 MODULE_LICENSE("GPL v2");
