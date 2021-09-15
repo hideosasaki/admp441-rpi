@@ -26,13 +26,16 @@ static struct snd_soc_dai_driver admp441_dai = {
 	},
 };
 
-static struct snd_soc_component admp441_codec_driver = { };
+static struct snd_soc_component admp441_component = {
+	.name = "admp441-hifi"
+};
 
 static struct snd_soc_dai admp441_soc_driver = { };
 
 static int admp441_probe(struct platform_device *pdev)
 {
-	admp441_soc_driver = *devm_snd_soc_register_dai(&pdev->dev, &admp441_codec_driver, &admp441_dai, 1);
+	admp441_component.dev = &pdev->dev;
+	admp441_soc_driver = *devm_snd_soc_register_dai(&pdev->dev, &admp441_component, &admp441_dai, 1);
 	return 0;
 }
 
