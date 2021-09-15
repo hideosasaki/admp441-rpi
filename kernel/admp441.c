@@ -37,13 +37,13 @@ static struct snd_soc_component_driver admp441_soc_component = {
 
 static int admp441_probe(struct platform_device *pdev)
 {
-	admp441_soc_driver = *devm_snd_soc_register_dai(&pdev->dev, &admp441_soc_component, &admp441_dai, 1);
+	admp441_soc_driver = *devm_snd_soc_register_component(&pdev->dev, &admp441_soc_component, &admp441_dai, 1);
 	return 0;
 }
 
 static int admp441_remove(struct platform_device *pdev)
 {
-	snd_soc_unregister_dai(&admp441_soc_driver);
+	snd_soc_unregister_component(&admp441_soc_driver);
 	return 0;
 }
 
